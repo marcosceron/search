@@ -208,6 +208,10 @@ def depthFirstSearch(problem):
     #
     # print actionsQueue
 
+    # print "Start:", problem.getStartState()
+    # print "Is the start a goal?", problem.isGoalState(problem.getStartState())
+    # print "Start's successors:", problem.getSuccessors(problem.getStartState())
+
     caminho = []
 
 
@@ -215,22 +219,20 @@ def depthFirstSearch(problem):
     estado = problem.getStartState()
     visitados = []
 
+
     borda.push(estado)
     proximosEstados = problem.getSuccessors(estado)
+    visitados.append(estado)
+
+
     caminho.append(proximosEstados[0][1])
 
     borda.push(proximosEstados[0][0])
     return caminho
 
 
-    # return caminho
-    # if problem.isGoalState(estado):
-    #     borda.pop()
-    #     visitados.append(estado)
-    #     return []
-    # else:
-    #     while not borda.isEmpty():
-    #         proximosEstados = problem.getSuccessors(estado)
+
+
 
 
 
