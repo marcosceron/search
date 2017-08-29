@@ -4,7 +4,7 @@
 # educational purposes provided that (1) you do not distribute or publish
 # solutions, (2) you retain this notice, and (3) you provide clear
 # attribution to UC Berkeley, including a link to http://ai.berkeley.edu.
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
 # The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
@@ -214,20 +214,40 @@ def depthFirstSearch(problem):
 
     caminho = []
 
-
     borda = util.Stack()
     estado = problem.getStartState()
     visitados = []
-
-
     borda.push(estado)
-    proximosEstados = problem.getSuccessors(estado)
     visitados.append(estado)
+    caminho.append(estado)
+
+    if problem.isGoalState(estado):
+        estadoAtual = borda.pop()
+        return caminho
 
 
-    caminho.append(proximosEstados[0][1])
+    while not borda.isEmpty():
+        estadoAtual = borda.pop()
+        proximosEstados = problem.getSuccessors(estadoAtual)
+        borda.push(proximosEstados[0][0])
 
-    borda.push(proximosEstados[0][0])
+        if problem.isGoalState(proximosEstados[0][0]) and not proximosEstados[0][0] in visitados:
+            estadoAtual = borda.pop()
+            visitados.append(estadoAtual)
+            caminho.append(estadoAtual)
+            return caminho
+        else:
+            visitados.append(proximosEstados[1][0])
+            borda.push(proximosEstados[1][0])
+            if problem.isGoalState(proximosEstados[1][0] and not proximosEstados[1][0] in visitados):
+                estadoAtual = borda.pop()
+                visitados.append(estadoAtual)
+                caminho.append(estadoAtual)
+                print borda.list
+                raise SystemExit
+                return caminho
+
+
     return caminho
 
 
