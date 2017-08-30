@@ -229,26 +229,40 @@ def depthFirstSearch(problem):
     while not borda.isEmpty():
         estadoAtual = borda.pop()
         proximosEstados = problem.getSuccessors(estadoAtual)
-        borda.push(proximosEstados[0][0])
 
-        if problem.isGoalState(proximosEstados[0][0]) and not proximosEstados[0][0] in visitados:
-            estadoAtual = borda.pop()
-            visitados.append(estadoAtual)
-            caminho.append(estadoAtual)
-            return caminho
-        else:
-            visitados.append(proximosEstados[1][0])
-            borda.push(proximosEstados[1][0])
-            if problem.isGoalState(proximosEstados[1][0] and not proximosEstados[1][0] in visitados):
-                estadoAtual = borda.pop()
-                visitados.append(estadoAtual)
-                caminho.append(estadoAtual)
-                print borda.list
-                raise SystemExit
-                return caminho
+        for s in proximosEstados:
+            print s
+
+            if s[0] not in visitados:
+                borda.push(s[0])
+
+                if problem.isGoalState(s[0]):
+                    estadoAtual = borda.pop()
+                    visitados.append(estadoAtual)
+                    caminho.append(estadoAtual)
+                    return caminho
 
 
-    return caminho
+
+
+    #     if problem.isGoalState(proximosEstados[0][0]) and not proximosEstados[0][0] in visitados:
+    #         estadoAtual = borda.pop()
+    #         visitados.append(estadoAtual)
+    #         caminho.append(estadoAtual)
+    #         return caminho
+    #     else:
+    #         visitados.append(proximosEstados[1][0])
+    #         borda.push(proximosEstados[1][0])
+    #         if problem.isGoalState(proximosEstados[1][0] and not proximosEstados[1][0] in visitados):
+    #             estadoAtual = borda.pop()
+    #             visitados.append(estadoAtual)
+    #             caminho.append(estadoAtual)
+    #             print borda.list
+    #             raise SystemExit
+    #             return caminho
+    #
+    #
+    # return caminho
 
 
 
