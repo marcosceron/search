@@ -87,36 +87,40 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    caminho = []
+    # Saída deve ser:
+    # return ['South', 'South', 'West', 'South', 'West', 'West', 'South', 'West']
+    # ou seja:
+    # return [(5,4), (5,3), (4,3), (4,2), (3,2), (2,2), (1,2), (1,1)]
 
-    borda = util.Stack()
-    estado = problem.getStartState()
-
-    visitados = []
-    borda.push(estado)
-    visitados.append(estado)
-
-    if problem.isGoalState(estado):
-        estadoAtual = borda.pop()
-        return caminho
-
-    while not borda.isEmpty():
-        estadoAtual = borda.pop()
-        proximosEstados = problem.getSuccessors(estadoAtual)
-
-        if problem.isGoalState(estadoAtual):
-            break
-
-        for s in proximosEstados:
-
-            if s[0] not in visitados:
-                borda.push(s[0])
-                estadoAtual = borda.pop()
-                visitados.append(estadoAtual)
-                caminho.append(s[1])
-                util.pause()
-
-    return caminho
+    # caminho = []
+    # borda = util.Stack()
+    # estado = problem.getStartState()
+    # visitados = []
+    #
+    # borda.push(estado)
+    # visitados.append(estado)
+    #
+    # if problem.isGoalState(estado):
+    #     estadoAtual = borda.pop()
+    #     return caminho
+    #
+    # while not borda.isEmpty():
+    #     estadoAtual = borda.pop()
+    #     proximosEstados = problem.getSuccessors(estadoAtual)
+    #
+    #     count = 0
+    #     for s in proximosEstados:
+    #         print count
+    #         print s
+    #         count += 1
+    #         borda.push(s[0])
+    #         print borda.list
+    #         util.pause()
+    #         if count == 99:
+    #             break
+    #
+    #
+    # return caminho
 
 
 
