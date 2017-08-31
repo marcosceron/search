@@ -87,160 +87,37 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    # reachedGoal = False
-    # exploredAll = False
-    #
-    # startState=problem.getStartState()
-    #
-    # exploredStatesDictionary=util.Counter()
-    # exploredStatesDictionary[0] = problem.getStartState()
-    # frontierDictionary=util.Counter()
-    # frontierList=problem.getSuccessors(problem.getStartState())
-    # #hash table for list of vertices as key
-    # vectorDictionary={}
-    #
-    #
-    #
-    # #create stack to hold the frontier states
-    # frontierQueue=util.Stack()
-    # #queue to hold list of actions
-    # #actionsQueue=util.Queue()
-    # actionsQueue=[]
-    #
-    #
-    # #push the frontier states onto the stack
-    # for i in frontierList:
-    #     fNode=i
-    #     frontierQueue.push(fNode)
-    #
-    # for i in frontierList:
-    #     actionsThisFar=copy.deepcopy(actionsQueue)
-    #     successor = str(i[0])
-    #     vectorDictionary[successor]=actionsThisFar
-    #
-    #
-    # #key variable, key to exploredStatesDictionary
-    # seenAlready=1
-    # while reachedGoal==False:
-    #
-    #
-    #     #get next state to explore, the first state from the stack
-    #     #also save the action required to get to that point
-    #     tempState=frontierQueue.pop()
-    #     nextState=tempState[0]
-    #     nextAction=tempState[1]
-    #
-    #     #save the explored state
-    #     exploredStatesDictionary[seenAlready] = nextState
-    #     #save the action taken
-    #     actionsQueue.append(nextAction)
-    #
-    #
-    #     seenAlready = seenAlready+1
-    #
-    #
-    #     #next state becomes current state
-    #     if (exploredAll == True):
-    #         inc=0
-    #         otherInc=0
-    #
-    #
-    #
-    #         reset = str(tempState[0])
-    #
-    #         newActionsList = vectorDictionary[reset]
-    #         newActionsList.append(tempState[1])
-    #
-    #         #empty the old action list
-    #         actionsQueue=copy.deepcopy(newActionsList)
-    #
-    #
-    #     currentState=nextState
-    #
-    #     #check if it is goal
-    #     if (problem.isGoalState(currentState)):
-    #         reachedGoal=True
-    #
-    #     else:
-    #         #the current state is not the goal
-    #         #acquire the new frontier
-    #
-    #
-    #         frontierList=problem.getSuccessors(currentState)
-    #         for i in frontierList:
-    #             actionsThisFar=copy.deepcopy(actionsQueue)
-    #             successor = str(i[0])
-    #             vectorDictionary[successor]=actionsThisFar
-    #
-    #
-    #         first = frontierList[0]
-    #
-    #         #push the unexplored frontier states onto the queue
-    #
-    #         explored=False
-    #
-    #         counter=0
-    #
-    #
-    #
-    #     for i in frontierList:
-    #
-    #          #counter to keep track of iterations
-    #          explored=False
-    #          exploredAll = False
-    #          for k in exploredStatesDictionary:
-    #               stateCo=exploredStatesDictionary[k]
-    #
-    #               if ((i[0] == stateCo)):
-    #
-    #                    explored = True
-    #                    counter = counter+1
-    #
-    #               if(counter == ((len(frontierList)))):
-    #                     exploredAll = True
-    #
-    #
-    #               elif ((explored == False) and (k == ((len(exploredStatesDictionary)))-1)):
-    #                     fNode = i
-    #                     frontierQueue.push(fNode)
-    #
-    #
-    #
-    # print actionsQueue
-
-    # print "Start:", problem.getStartState()
-    # print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    # print "Start's successors:", problem.getSuccessors(problem.getStartState())
-
     caminho = []
 
     borda = util.Stack()
     estado = problem.getStartState()
+
     visitados = []
     borda.push(estado)
     visitados.append(estado)
-    caminho.append(estado)
 
     if problem.isGoalState(estado):
         estadoAtual = borda.pop()
         return caminho
 
-
     while not borda.isEmpty():
         estadoAtual = borda.pop()
         proximosEstados = problem.getSuccessors(estadoAtual)
 
+        if problem.isGoalState(estadoAtual):
+            break
+
         for s in proximosEstados:
-            print s
 
             if s[0] not in visitados:
                 borda.push(s[0])
+                estadoAtual = borda.pop()
+                visitados.append(estadoAtual)
+                caminho.append(s[1])
+                util.pause()
 
-                if problem.isGoalState(s[0]):
-                    estadoAtual = borda.pop()
-                    visitados.append(estadoAtual)
-                    caminho.append(estadoAtual)
-                    return caminho
+    return caminho
+
 
 
 
@@ -263,10 +140,6 @@ def depthFirstSearch(problem):
     #
     #
     # return caminho
-
-
-
-
 
 
 
