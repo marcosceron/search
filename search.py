@@ -87,65 +87,43 @@ def depthFirstSearch(problem):
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
-    # Saída deve ser:
+    # Saida (para tinyMaze) deve ser:
     # return ['South', 'South', 'West', 'South', 'West', 'West', 'South', 'West']
     # ou seja:
     # return [(5,4), (5,3), (4,3), (4,2), (3,2), (2,2), (1,2), (1,1)]
 
-    # caminho = []
-    # borda = util.Stack()
-    # estado = problem.getStartState()
-    # visitados = []
-    #
-    # borda.push(estado)
-    # visitados.append(estado)
-    #
-    # if problem.isGoalState(estado):
-    #     estadoAtual = borda.pop()
-    #     return caminho
-    #
-    # while not borda.isEmpty():
-    #     estadoAtual = borda.pop()
-    #     proximosEstados = problem.getSuccessors(estadoAtual)
-    #
-    #     count = 0
-    #     for s in proximosEstados:
-    #         print count
-    #         print s
-    #         count += 1
-    #         borda.push(s[0])
-    #         print borda.list
-    #         util.pause()
-    #         if count == 99:
-    #             break
-    #
-    #
-    # return caminho
+    caminho = []
+    borda = util.Stack()
+    estado = problem.getStartState()
+    visitados = []
+
+    borda.push(estado)
+    visitados.append(estado)
+
+    if problem.isGoalState(estado):
+        estadoAtual = borda.pop()
+        return caminho
+
+    while not borda.isEmpty():
+        estadoAtual = borda.pop()
+        proximosEstados = problem.getSuccessors(estadoAtual)
 
 
 
+        for s in proximosEstados:
+            if s[0] not in visitados:
+                borda.push(s[0])
 
-
-    #     if problem.isGoalState(proximosEstados[0][0]) and not proximosEstados[0][0] in visitados:
-    #         estadoAtual = borda.pop()
-    #         visitados.append(estadoAtual)
-    #         caminho.append(estadoAtual)
-    #         return caminho
-    #     else:
-    #         visitados.append(proximosEstados[1][0])
-    #         borda.push(proximosEstados[1][0])
-    #         if problem.isGoalState(proximosEstados[1][0] and not proximosEstados[1][0] in visitados):
-    #             estadoAtual = borda.pop()
-    #             visitados.append(estadoAtual)
-    #             caminho.append(estadoAtual)
-    #             print borda.list
-    #             raise SystemExit
-    #             return caminho
-    #
-    #
-    # return caminho
-
-
+        for s in proximosEstados:
+            estadoAtual = borda.pop()
+            print estadoAtual
+            print '-'
+            visitados.append(estadoAtual)
+            print visitados
+            if problem.isGoalState(estadoAtual):
+                break
+            else:
+                borda.push(s[0])
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
