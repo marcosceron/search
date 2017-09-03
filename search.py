@@ -100,39 +100,35 @@ def depthFirstSearch(problem):
     borda.push(estado)
     visitados.append(estado)
 
-
     if problem.isGoalState(estado):
         estadoAtual = borda.pop()
         return caminho
 
     while not borda.isEmpty():
         estadoAtual = borda.pop()
+        visitados.append(estadoAtual)
+        # print "Estado atual: "
+        # print estadoAtual
+        #
+        # util.pause()
 
-        if problem.getSuccessors(estadoAtual):
-            proximosEstados = problem.getSuccessors(estadoAtual)
-            borda.push(proximosEstados[0][0])
-            caminho.append(proximosEstados[0][1])
+        # print "Visitados:"
+        # print visitados
 
-            estadoAtual = borda.pop()
+        for s in problem.getSuccessors(estadoAtual):
+            if s[0] not in visitados:
+                # print "Filhos:"
+                # print s[0]
+                visitados.append(s[0])
+                borda.push(s[0])
+
+                # print "Borda: "
+                # print borda.list
+        if problem.isGoalState(estadoAtual):
+            print "Achou o objetivo"
 
 
-            if estadoAtual not in visitados:
-
-                if problem.isGoalState(estadoAtual):
-                    print "Achou o objetivo"
-                    raise SystemExit
-                else:
-                    print "Entra aqui"
-                    print estadoAtual[0]
-
-                    borda.push(proximosEstados[1][0])
-                    print borda.list
-
-                    util.pause()
-            else:
-                caminho = []
-
-        print caminho
+    return []
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""

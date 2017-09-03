@@ -1,3 +1,50 @@
+# Função que achou o objetivo
+# 2017-09-03 - 00h07
+
+def depthFirstSearch(problem):
+    caminho = []
+    borda = util.Stack()
+    estado = problem.getStartState()
+    visitados = []
+
+    borda.push(estado)
+    visitados.append(estado)
+
+    if problem.isGoalState(estado):
+        estadoAtual = borda.pop()
+        return caminho
+
+
+
+        while not borda.isEmpty():
+            estadoAtual = borda.pop()
+            visitados.append(estadoAtual)
+
+            # print "Estado atual: "
+            # print estadoAtual
+            #
+            # print "Visitados:"
+            # print visitados
+            if problem.getSuccessors(estadoAtual):
+
+                for s in problem.getSuccessors(estadoAtual):
+                    if s[0] not in visitados:
+                        # print "Filhos:"
+                        # print s[0]
+                        visitados.append(s[0])
+                        borda.push(s[0])
+                        # print "Borda: "
+                        # print borda.list
+
+            if problem.isGoalState(estadoAtual):
+                print "VAI TOMAR NO OLHO DO TEU CU FILHO DA PUTA ARROMBADO!"
+
+    return []
+
+
+
+
+
 reachedGoal = False
 exploredAll = False
 
