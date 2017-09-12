@@ -97,20 +97,27 @@ def depthFirstSearch(problem):
     estado = problem.getStartState()
     visitados = []
 
-    borda.push(estado)
+    borda.push((estado,[]))
     visitados.append(estado)
 
     if problem.isGoalState(estado):
-        estadoAtual = borda.pop()
+        estadoAtual,caminho = borda.pop()
+        print caminho
         return caminho
 
     while not borda.isEmpty():
-        estadoAtual = borda.pop()
+        estadoAtual,caminho = borda.pop()
+
+        if problem.isGoalState(estadoAtual):
+           print "Achou o objetivo"
+           print caminho
+           return caminho
+
         visitados.append(estadoAtual)
         # print "Estado atual: "
         # print estadoAtual
         #
-        # util.pause()
+        print caminho
 
         # print "Visitados:"
         # print visitados
@@ -120,12 +127,11 @@ def depthFirstSearch(problem):
                 # print "Filhos:"
                 # print s[0]
                 visitados.append(s[0])
-                borda.push(s[0])
+                borda.push((s[0],caminho+[s[1]]))
+
 
                 # print "Borda: "
                 # print borda.list
-        if problem.isGoalState(estadoAtual):
-            print "Achou o objetivo"
 
 
     return []
@@ -133,7 +139,49 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    caminho = []
+    borda = util.Queue()
+    estado = problem.getStartState()
+    visitados = []
+
+    borda.push((estado,[]))
+    visitados.append(estado)
+
+    if problem.isGoalState(estado):
+        estadoAtual,caminho = borda.pop()
+        print caminho
+        return caminho
+
+    while not borda.isEmpty():
+        estadoAtual,caminho = borda.pop()
+
+        if problem.isGoalState(estadoAtual):
+           print "Achou o objetivo"
+           print caminho
+           return caminho
+
+        visitados.append(estadoAtual)
+        # print "Estado atual: "
+        # print estadoAtual
+        #
+        print caminho
+
+        # print "Visitados:"
+        # print visitados
+
+        for s in problem.getSuccessors(estadoAtual):
+            if s[0] not in visitados:
+                # print "Filhos:"
+                # print s[0]
+                visitados.append(s[0])
+                borda.push((s[0],caminho+[s[1]]))
+
+
+                # print "Borda: "
+                # print borda.list
+
+
+    return []
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
