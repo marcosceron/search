@@ -102,7 +102,7 @@ def depthFirstSearch(problem):
 
     if problem.isGoalState(estado):
         estadoAtual,caminho = borda.pop()
-        print caminho
+        #print caminho
         return caminho
 
     while not borda.isEmpty():
@@ -110,14 +110,13 @@ def depthFirstSearch(problem):
 
         if problem.isGoalState(estadoAtual):
            print "Achou o objetivo"
-           print caminho
+           #print caminho
            return caminho
 
         visitados.append(estadoAtual)
         # print "Estado atual: "
         # print estadoAtual
-        #
-        print caminho
+        # print caminho
 
         # print "Visitados:"
         # print visitados
@@ -149,7 +148,7 @@ def breadthFirstSearch(problem):
 
     if problem.isGoalState(estado):
         estadoAtual,caminho = borda.pop()
-        print caminho
+        #print caminho
         return caminho
 
     while not borda.isEmpty():
@@ -157,14 +156,13 @@ def breadthFirstSearch(problem):
 
         if problem.isGoalState(estadoAtual):
            print "Achou o objetivo"
-           print caminho
+           #print caminho
            return caminho
 
         visitados.append(estadoAtual)
         # print "Estado atual: "
         # print estadoAtual
-        #
-        print caminho
+        # print caminho
 
         # print "Visitados:"
         # print visitados
@@ -196,7 +194,7 @@ def uniformCostSearch(problem):
 
     if problem.isGoalState(estado):
         estadoAtual,caminho = borda.pop()
-        print caminho
+        #print caminho
         return caminho
 
     while not borda.isEmpty():
@@ -204,14 +202,13 @@ def uniformCostSearch(problem):
 
         if problem.isGoalState(estadoAtual):
            print "Achou o objetivo"
-           print caminho
+           #print caminho
            return caminho
 
         visitados.append(estadoAtual)
         # print "Estado atual: "
         # print estadoAtual
-        #
-        print caminho
+        # print caminho
 
         # print "Visitados:"
         # print visitados
