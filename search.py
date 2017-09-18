@@ -237,8 +237,47 @@ def nullHeuristic(state, problem=None):
 
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
+    """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    caminho = []
+    borda = util.PriorityQueue()
+    estado = problem.getStartState()
+    visitados = []
+
+    borda.push((estado,[],0),0+heuristic(estado,problem))
+    visitados.append(estado)
+
+    if problem.isGoalState(estado):
+        estadoAtual,caminho, custo = borda.pop()
+        #print caminho
+        return caminho
+
+    while not borda.isEmpty():
+        estadoAtual,caminho, custo = borda.pop()
+
+        if problem.isGoalState(estadoAtual):
+           print "Achou o objetivo"
+           #print caminho
+           return caminho
+
+        visitados.append(estadoAtual)
+        # print "Estado atual: "
+        # print estadoAtual
+        # print caminho
+        # print "Visitados:"
+        # print visitados
+
+        for s in problem.getSuccessors(estadoAtual):
+            if s[0] not in visitados:
+                # print "Filhos:"
+                # print s[0]
+                custo = custo + s[2]
+                visitados.append(s[0])
+                borda.push((s[0],caminho+[s[1]],custo),custo+heuristic(s[0],problem))
+                # print "Borda: "
+                # print borda.list
+
+    return []
 
 
 # Abbreviations
