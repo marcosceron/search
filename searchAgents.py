@@ -305,6 +305,10 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
+        # Se o len de state[1] for 4 significa que achou todos os cantos
+        # if len(state[1]) == 4:
+        #     print state
+        #     util.pause()
         return len(state[1]) == 4
         #util.raiseNotDefined()
 
@@ -318,9 +322,13 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
+        # print state[0]
+        # print state[1]
+        # state[0] = estado atual
+        # state[1] = cantos encontrados ?
+
         estadoAtual = state[0]
         corners_encontrados = state[1]
-        baixo, esquerda, cima, direita = 1, 1, self.walls.height-2, self.walls.width-2
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
@@ -336,12 +344,20 @@ class CornersProblem(search.SearchProblem):
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
 
+            # Se nao bate nas paredes:
+            # se o estado atual esta no array de cantos mas nao entre os que ja foram encontrados
+            # incrementa o array
+            # corners + (nextx, nexty)
+            # senao deixa o array de encontrados como esta e segue
+
             if not hitsWall:
                 if (nextx, nexty) in self.corners and (nextx, nexty) not in corners_encontrados:
                     successors.append((((nextx, nexty), corners_encontrados + [(nextx, nexty)]), action, 1))
                 else:
                     successors.append((((nextx, nexty), corners_encontrados), action, 1))
 
+        # print successors
+        # util.pause()
         self._expanded += 1 # DO NOT CHANGE
         return successors
 
@@ -375,7 +391,7 @@ def cornersHeuristic(state, problem):
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
-    "*** YOUR CODE HERE ***"
+
     return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
