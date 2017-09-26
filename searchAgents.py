@@ -287,8 +287,8 @@ class CornersProblem(search.SearchProblem):
         self._expanded = 0 # DO NOT CHANGE; Number of search nodes expanded
         # Please add any code here which you would like to use
         # in initializing the problem
-        self.t = True
-        self.f = False
+
+        self.startState=(self.startingPosition, False, False, False, False)
 
 
     def getStartState(self):
@@ -297,7 +297,7 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        estado = (self.startingPosition, [])
+        estado = self.startState
         return estado
         #util.raiseNotDefined()
 
@@ -305,11 +305,8 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
-        # Se o len de state[1] for 4 significa que achou todos os cantos
-        # if len(state[1]) == 4:
-        #     print state
-        #     util.pause()
-        return len(state[1]) == 4
+
+        return state[1] == True and state[2] == True and state[3] == True and state[4] == True
         #util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -327,11 +324,9 @@ class CornersProblem(search.SearchProblem):
         # state[0] = estado atual
         # state[1] = cantos encontrados ?
 
-        estadoAtual = state[0]
-        corners_encontrados = state[1]
-
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
+            estado, c1, c2, c3, c4 = state
 
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -339,10 +334,12 @@ class CornersProblem(search.SearchProblem):
             #   dx, dy = Actions.directionToVector(action)
             #   nextx, nexty = int(x + dx), int(y + dy)
             #   hitsWall = self.walls[nextx][nexty]
-            x,y = estadoAtual
+            x,y = estado
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
+
+
 
             # Se nao bate nas paredes:
             # se o estado atual esta no array de cantos mas nao entre os que ja foram encontrados
@@ -351,10 +348,17 @@ class CornersProblem(search.SearchProblem):
             # senao deixa o array de encontrados como esta e segue
 
             if not hitsWall:
-                if (nextx, nexty) in self.corners and (nextx, nexty) not in corners_encontrados:
-                    successors.append((((nextx, nexty), corners_encontrados + [(nextx, nexty)]), action, 1))
-                else:
-                    successors.append((((nextx, nexty), corners_encontrados), action, 1))
+                canto1, canto2, canto3, canto4 = self.corners
+                if (nextx, nexty) == canto1:
+                    c1 = True
+                if (nextx, nexty) == canto2:
+                    c2 = True
+                if (nextx, nexty) == canto3:
+                    c3 = True
+                if (nextx, nexty) == canto4:
+                    c4 = True
+                proximoEstado = ((nextx,nexty), c1, c2, c3, c4)
+                successors.append((proximoEstado, action, 1))
 
         # print successors
         # util.pause()
