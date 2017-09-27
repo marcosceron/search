@@ -288,6 +288,8 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
 
+        # estado inicial guardando uma flag para cada canto visitado
+        # no inicio todas ficam falsas
         self.startState=(self.startingPosition, False, False, False, False)
 
 
@@ -305,7 +307,7 @@ class CornersProblem(search.SearchProblem):
         """
         Returns whether this search state is a goal state of the problem.
         """
-
+        # caso todos os cantos forem visitados todas as flags estarao verdadeiras
         return state[1] == True and state[2] == True and state[3] == True and state[4] == True
         #util.raiseNotDefined()
 
@@ -319,14 +321,16 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
-        # print state[0]
-        # print state[1]
-        # state[0] = estado atual
-        # state[1] = cantos encontrados ?
+        # print state
+        # state retorna -> ((x,x), b, b, b, b)
+        # x = numerico
+        # b = booleano
 
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             estado, c1, c2, c3, c4 = state
+            # estado = (x,x)
+            # c1 = b ... c2 = b ... etc
 
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
@@ -334,12 +338,17 @@ class CornersProblem(search.SearchProblem):
             #   dx, dy = Actions.directionToVector(action)
             #   nextx, nexty = int(x + dx), int(y + dy)
             #   hitsWall = self.walls[nextx][nexty]
+
             x,y = estado
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             hitsWall = self.walls[nextx][nexty]
 
-
+            # print estado
+            # print dx
+            # print '-'
+            # print dy
+            # util.pause()
 
             # Se nao bate nas paredes:
             # se o estado atual esta no array de cantos mas nao entre os que ja foram encontrados
@@ -395,8 +404,48 @@ def cornersHeuristic(state, problem):
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
+    sol=2
+    #sol = 1 retorna o numero de corners nao visitados.
+    #sol = 2 retorna a distancia linear ate o proximo corner nao visitado.
 
-    return 0 # Default to trivial solution
+    estado, c1, c2, c3, c4 = state
+
+    if sol==1:
+        count = 0
+        if c1 == False:
+            count += 1
+        if c2 == False:
+            count += 1
+        if c3 == False:
+            count += 1
+        if c4 == False:
+            count += 1
+        return count
+
+    if sol==2:
+        distancia = 0
+
+        if c1 == False:
+            distancia=util.manhattanDistance(estado,corners[0])
+            # print distancia
+            # util.pause()
+        if c2 == False:
+            distancia = util.manhattanDistance(estado, corners[1])
+            # print distancia
+            # util.pause()
+        if c3 == False:
+            distancia=util.manhattanDistance(estado,corners[2])
+            # print distancia
+            # util.pause()
+        if c4 == False:
+            distancia = util.manhattanDistance(estado, corners[3])
+            # print distancia
+            # util.pause()
+        #util.pause()
+        return distancia
+
+
+    # return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
