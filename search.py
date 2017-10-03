@@ -275,6 +275,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 visitados.append(s[0])
                 borda.push((s[0],caminho+[s[1]],custo),custo+heuristic(s[0],problem))
                 # print "Borda: "
+                # print custo
                 # print heuristic(s[0],problem)
                 # util.pause()
 
